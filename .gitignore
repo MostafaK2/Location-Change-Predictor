@@ -1,0 +1,58 @@
+# Mac system files
+.DS_Store
+
+# Logs
+*.log
+logs/
+*.out
+
+# Node modules
+node_modules/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.env
+*.venv
+env/
+venv/
+.venv/
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Build artifacts
+/dist/
+/build/
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Git
+*.orig
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# LaTeX build files
+*.aux
+*.bbl
+*.blg
+*.brf
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.nav
+*.snm
+*.pdf 
