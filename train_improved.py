@@ -32,13 +32,13 @@ from sklearn.metrics import (
 
 class Config:
     # Data paths - MODIFY THESE
-    DATA_DIR = "/home/public/squadir/sent-trans-dbs"
+    DATA_DIR = "/home/public/tweetdatanlp/sent-trans-dbs"
     METADATA_FILE = "tweet_metadata.csv"
     EMBEDDINGS_FILE = "tweet_embeddings.npy"
     
     # Dataset
-    SEQUENCE_LENGTH = 5
-    DISTANCE_THRESHOLD_KM = 5.0  # Try 1, 5, or 10
+    SEQUENCE_LENGTH = 15
+    DISTANCE_THRESHOLD_KM = 0  # Try 1, 5, or 10
     
     # Training
     BATCH_SIZE = 64
