@@ -1,1 +1,1 @@
-Heirical LSTM Model Confusion Matrix:
+hierarchical LSTM Model Confusion Matrix:

@@ -36,18 +36,51 @@ def perform_preprocessing(dataset_path = "/home/public/tweetdatanlp/GeoText.2010
     df_cleaned["Timestamp"] = (df_cleaned['UnixTimestamp'] - MIN_TIME) / (MAX_TIME - MIN_TIME)
     print(f"The minimum unix time: {MIN_TIME} and Max unix time: {MAX_TIME}")
 
+
+    # Remove Outliers
+    df_cleaned = plot_clean_scatter(df_cleaned)
+
     # Cols to keep
     col_to_keep= ["UserID", "Timestamp", "NormalizedText", "Latitude", "Longitude"]
     final_df  = df_cleaned[col_to_keep]
+
+    
     print(final_df.head())
     print("✔️ Finshed Preprocessing Step ")
     return final_df
 
 
+def plot_clean_scatter(df, std_threshold=5, if_plot=False):
+    """Remove outliers and plot lat/lon scatter"""
+    
+    # Remove outliers using z-score method
+    lat_mean, lat_std = df['Latitude'].mean(), df['Latitude'].std()
+    lon_mean, lon_std = df['Longitude'].mean(), df['Longitude'].std()
+    
+    df_clean = df[
+        (np.abs(df['Latitude'] - lat_mean) < std_threshold * lat_std) &
+        (np.abs(df['Longitude'] - lon_mean) < std_threshold * lon_std)
+    ]
 
+    
+    print(f"Original: {len(df)} tweets")
+    print(f"After removing outliers: {len(df_clean)} tweets")
+    print(f"Removed: {len(df) - len(df_clean)} outliers")
 
-
-
+    if (if_plot):
+        # Plot
+        fig, ax = plt.subplots(figsize=(14, 10))
+        ax.scatter(df_clean['Longitude'], df_clean['Latitude'], 
+                s=10, c='red', alpha=0.6, edgecolors='black', linewidth=0.3)
+        ax.set_xlabel('Longitude', fontsize=14, fontweight='bold')
+        ax.set_ylabel('Latitude', fontsize=14, fontweight='bold')
+        ax.set_title('Tweet Locations (Outliers Removed)', fontsize=16, fontweight='bold', pad=20)
+        ax.grid(True, alpha=0.3, linestyle='--')
+        plt.tight_layout()
+        plt.savefig('scatter_clean.png', dpi=300, bbox_inches='tight')
+        plt.show()
+    
+    return df_clean
 
 
 
